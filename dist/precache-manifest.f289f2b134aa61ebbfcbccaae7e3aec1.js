@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e9b26601cb03e51d3ec9d7824b90d8f9",
+    "revision": "9197cc64185468a4fd508376c4cc23f4",
     "url": "/vant-viewport/index.html"
   },
   {
@@ -20,7 +20,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/vant-viewport/static/css/chunk-vant.5a60392f.css"
   },
   {
-    "revision": "c3a6c69ea42f083e1d29",
+    "revision": "57cdce75044d24e815ef",
     "url": "/vant-viewport/static/css/login.269b6ca7.css"
   },
   {
@@ -48,11 +48,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/vant-viewport/static/js/chunk-vant.352b98fa.js"
   },
   {
-    "revision": "c3a6c69ea42f083e1d29",
-    "url": "/vant-viewport/static/js/login.990a9c2c.js"
+    "revision": "57cdce75044d24e815ef",
+    "url": "/vant-viewport/static/js/login.070ebd50.js"
   },
   {
-    "revision": "a1775f9df48f903c8e1d",
-    "url": "/vant-viewport/static/js/runtime.613fb1c1.js"
+    "revision": "727ff22dae7df911b94c",
+    "url": "/vant-viewport/static/js/runtime.cb376dd6.js"
   }
 ]);
