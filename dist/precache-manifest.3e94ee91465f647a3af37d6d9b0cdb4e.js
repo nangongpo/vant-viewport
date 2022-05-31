@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5e4c861ed525adeea8223cb1d4e18ce4",
+    "revision": "871c05883470bf9b69233a6e7e9acc04",
     "url": "/vant-viewport/index.html"
   },
   {
@@ -12,7 +12,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/vant-viewport/robots.txt"
   },
   {
-    "revision": "4d67cb73cd080a2ae9aa",
+    "revision": "2dbfd55aecf71f484061",
     "url": "/vant-viewport/static/css/app.aa999581.css"
   },
   {
@@ -28,8 +28,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/vant-viewport/static/js/about.23c36b93.js"
   },
   {
-    "revision": "4d67cb73cd080a2ae9aa",
-    "url": "/vant-viewport/static/js/app.8cb3a8d0.js"
+    "revision": "2dbfd55aecf71f484061",
+    "url": "/vant-viewport/static/js/app.8868cd20.js"
   },
   {
     "revision": "45fa33e32b81257dcfc7",
