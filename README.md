@@ -1,5 +1,22 @@
 # weixin_pass_vant
 
+## 任务
+  - [ ] 页面缓存 vue-native-navigation
+
+
+
+## 小知识
+  - chrome 对安全源的设定
+    ```
+    (https, *, *)
+    (wss, *, *)
+    (*, localhost, *)
+    (*, 127/8, *)
+    (*, ::1/128, *)
+    (file, *, —)
+    (chrome-extension, *, —)
+    ```
+
 ## Project setup
 ```
 npm install

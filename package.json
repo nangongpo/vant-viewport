@@ -1,16 +1,21 @@
 {
-  "name": "weixin_pass_vant",
+  "name": "vant-viewport",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "preview": "node build/index.js --preview",
+    "report": "node build/index.js --preview --report",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "connect": "^3.7.0",
     "core-js": "^3.6.5",
     "register-service-worker": "^1.7.1",
-    "vue": "^2.6.11",
+    "vant": "^2.12.47",
+    "vue": "2.6.14",
+    "vue-native-navigation": "^2.0.1",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
   },
@@ -22,10 +27,13 @@
     "@vue/cli-plugin-vuex": "~4.5.17",
     "@vue/cli-service": "~4.5.17",
     "babel-eslint": "^10.1.0",
+    "babel-plugin-import": "^1.13.5",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
-    "vue-template-compiler": "^2.6.11"
+    "postcss-px-to-viewport": "^1.1.1",
+    "tasksfile": "^5.1.1",
+    "vue-template-compiler": "2.6.14"
   }
 }

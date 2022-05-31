@@ -4,9 +4,18 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
+    <service-worker-update-popup />
     <router-view/>
   </div>
 </template>
+
+<script>
+import ServiceWorkerUpdatePopup from '@/pwa/components/ServiceWorkerUpdatePopup.vue'
+export default {
+  name: 'App',
+  components: { ServiceWorkerUpdatePopup }
+}
+</script>
 
 <style lang="less">
 #app {
