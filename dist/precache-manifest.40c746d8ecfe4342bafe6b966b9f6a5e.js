@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a7936ff1aac37e9ec5b957c8d8787ac6",
+    "revision": "e9b26601cb03e51d3ec9d7824b90d8f9",
     "url": "/vant-viewport/index.html"
   },
   {
@@ -12,7 +12,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/vant-viewport/robots.txt"
   },
   {
-    "revision": "6e32f0805159c789e1d8",
+    "revision": "79872de1ab637cd26170",
     "url": "/vant-viewport/static/css/app.2a05310a.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/vant-viewport/static/css/chunk-vant.5a60392f.css"
   },
   {
-    "revision": "e4be5ba1cf0a90771dbc",
-    "url": "/vant-viewport/static/css/login.d5db511c.css"
+    "revision": "c3a6c69ea42f083e1d29",
+    "url": "/vant-viewport/static/css/login.269b6ca7.css"
   },
   {
     "revision": "82b9c7a5a3f405032b1db71a25f67021",
@@ -32,8 +32,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/vant-viewport/static/js/about.23c36b93.js"
   },
   {
-    "revision": "6e32f0805159c789e1d8",
-    "url": "/vant-viewport/static/js/app.470b65aa.js"
+    "revision": "79872de1ab637cd26170",
+    "url": "/vant-viewport/static/js/app.821ddc35.js"
   },
   {
     "revision": "e8bec305e972fb8b9bdf",
@@ -48,11 +48,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/vant-viewport/static/js/chunk-vant.352b98fa.js"
   },
   {
-    "revision": "e4be5ba1cf0a90771dbc",
-    "url": "/vant-viewport/static/js/login.70f32b6e.js"
+    "revision": "c3a6c69ea42f083e1d29",
+    "url": "/vant-viewport/static/js/login.990a9c2c.js"
   },
   {
-    "revision": "c9db55ec243c8086ce5b",
-    "url": "/vant-viewport/static/js/runtime.9c61b518.js"
+    "revision": "a1775f9df48f903c8e1d",
+    "url": "/vant-viewport/static/js/runtime.613fb1c1.js"
   }
 ]);
