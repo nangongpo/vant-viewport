@@ -1,7 +1,9 @@
+const isProd = process.env.NODE_ENV === 'production'
+
 module.exports = {
   name: 'vant-viewport',
   title: 'vant-viewport',
-  publicPath: '/vant-viewport/',
+  publicPath: isProd ? '/vant-viewport/' : '/',
   outputDir: 'dist',
   assetsDir: 'static',
   devPort: 8080,

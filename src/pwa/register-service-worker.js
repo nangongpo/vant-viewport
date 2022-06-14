@@ -25,7 +25,6 @@ if (process.env.NODE_ENV === 'production') {
     },
     updated(registration) {
       console.log('New content is available; please refresh.')
-      alert(12)
       // Add a custom event and dispatch it.
       // Used to display of a 'refresh' banner following a service worker update.
       // Set the event payload to the service worker registration object.

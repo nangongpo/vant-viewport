@@ -10,14 +10,21 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "amfe-flexible": "^2.2.1",
+    "axios": "^0.27.2",
     "connect": "^3.7.0",
     "core-js": "^3.6.5",
+    "load-script": "^2.0.0",
+    "nanoid": "3.3.4",
     "register-service-worker": "^1.7.1",
+    "sha1.js": "^0.1.1",
     "vant": "^2.12.47",
+    "vconsole": "^3.14.6",
     "vue": "2.6.14",
     "vue-native-navigation": "^2.0.1",
     "vue-router": "^3.2.0",
-    "vuex": "^3.4.0"
+    "vuex": "^3.4.0",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.17",
@@ -32,7 +39,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "less": "^3.0.4",
     "less-loader": "^5.0.0",
-    "postcss-px-to-viewport": "^1.1.1",
+    "postcss-pxtorem": "5.0.0",
     "tasksfile": "^5.1.1",
     "vue-template-compiler": "2.6.14"
   }

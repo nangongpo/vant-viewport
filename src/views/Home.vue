@@ -1,18 +1,112 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <transition name="van-fade" appear :duration="1000">
+      <div v-if="!!userInfo">
+        <img alt="Vue logo" src="~@/assets/logo.png">
+        <div class="button-group">
+          <van-button v-preventReClick type="info" round block @click="nextStep">下一步</van-button>
+          <van-button v-preventReClick type="info" round block @click="scanQRCode">扫一扫</van-button>
+          <van-button v-preventReClick type="info" round block @click="getLocation">获取当前位置</van-button>
+          <van-button v-preventReClick type="info" round block @click="openLocation">打开内置地图</van-button>
+          <van-button v-preventReClick type="info" round block @click="closeWindow">关闭当前页面</van-button>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import { mapGetters } from 'vuex'
+import { hasCode } from '@/jssdk/util'
+import { param2Obj } from '@/utils'
 
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      position: null
+    }
+  },
+  computed: {
+    ...mapGetters(['app', 'appReady', 'userInfo'])
+  },
+  mounted() {
+    this.initContent()
+  },
+  methods: {
+    async initContent() {
+      try {
+        const queryObj = param2Obj(window.location.href)
+        const result = await hasCode(queryObj)
+        if (!result.valid) {
+          this.$dialog.alert({
+            title: '消息提示',
+            message: result.message,
+            confirmButtonText: '去登录'
+          }).then(() => {
+            if (result.code) {
+              window.history.go(-1)
+              return
+            }
+            this.$router.replace({ name: 'Login' })
+          })
+          return
+        }
+        this.$store.dispatch('user/login', result).then(() => {
+          console.log('登录成功', this.app)
+        })
+      } catch (err) {
+        this.$dialog.alert({
+          title: '消息提示',
+          message: `登录失败：${err.message}`,
+          confirmButtonText: '退出重试'
+        }).then(() => {
+          window.history.go(-2)
+        })
+      }
+    },
+    nextStep() {
+      this.$router.push({ path: '/list' })
+    },
+    scanQRCode() {
+      this.appReady('scanQRCode').then(code => {
+        alert(code)
+      }).catch((err) => {
+        console.log('scanQRCode', err)
+      })
+    },
+    getLocation() {
+      this.appReady('getLocation').then(res => {
+        this.position = res.openLocation
+        console.log('appReady', res)
+        this.$dialog.alert({ message: `${res.address}` })
+      }).catch(err => {
+        this.$dialog.alert({ message: err.message })
+      })
+    },
+    openLocation() {
+      const { position } = this
+      if (!position) {
+        this.$dialog.alert({ message: '请先获取获取当前位置' })
+        return
+      }
+      this.appReady('openLocation', position).then(() => {
+
+      }).catch(err => {
+        this.$dialog.alert({ message: err.message })
+      })
+    },
+    closeWindow() {
+      this.appReady('closeWindow')
+    }
   }
 }
 </script>
+
+<style lang="less" scoped>
+.button-group {
+  .van-button {
+    margin: 5px 0;
+  }
+}
+</style>

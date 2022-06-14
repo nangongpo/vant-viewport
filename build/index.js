@@ -1,4 +1,6 @@
 // 用来模拟线上前端情况，在终端执行 npm run preview
+process.env.NODE_ENV = 'production'
+
 const { sh } = require('tasksfile')
 const chalk = require('chalk')
 const rawArgv = process.argv.slice(2)

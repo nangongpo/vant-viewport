@@ -1,41 +1,34 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <vue-native-navigation>
+      <router-view v-show="network" />
+    </vue-native-navigation>
+    <disconnected-warning :network="network" />
     <service-worker-update-popup />
-    <router-view/>
   </div>
 </template>
 
 <script>
+import DisconnectedWarning from '@/pwa/components/DisconnectedWarning'
 import ServiceWorkerUpdatePopup from '@/pwa/components/ServiceWorkerUpdatePopup.vue'
+
 export default {
   name: 'App',
-  components: { ServiceWorkerUpdatePopup }
-}
-</script>
-
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+  components: { DisconnectedWarning, ServiceWorkerUpdatePopup },
+  data() {
+    return {
+      network: true
     }
+  },
+  mounted() {
+    window.addEventListener('offline', () => {
+      this.network = false
+      console.log('已断网')
+    })
+    window.addEventListener('online', () => {
+      this.network = true
+      console.log('网络已连接')
+    })
   }
 }
-</style>
+</script>

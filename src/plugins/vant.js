@@ -1,15 +1,14 @@
-import { Button, Cell, CellGroup, Image, Popup, Toast, Notify, Dialog } from 'vant'
+import { Button, Cell, CellGroup, Image, Popup, Toast, Dialog } from 'vant'
 
-const components = {
+const components = [
   Button,
   Cell,
   CellGroup,
   Image,
   Popup,
   Toast,
-  Notify,
   Dialog
-}
+]
 
 export default {
   // eslint-disable-next-line no-unused-vars
