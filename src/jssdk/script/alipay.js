@@ -67,7 +67,7 @@ export const alipayApi = {
         const { name } = pois[0] || {}
         const newResult = {
           openLocation: {
-            name,
+            name: name || address,
             address
           },
           ...res

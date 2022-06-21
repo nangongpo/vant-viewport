@@ -4,7 +4,9 @@
       <div v-if="!!userInfo">
         <img alt="Vue logo" src="~@/assets/logo.png">
         <div class="button-group">
-          <van-button v-preventReClick type="info" round block @click="nextStep">下一步</van-button>
+          <van-button v-preventReClick type="info" round block @click="toPage({ path: '/list' })">下一步</van-button>
+          <van-button v-preventReClick type="info" round block @click="toPage({ path: '/form' })">表单</van-button>
+          <van-button v-preventReClick type="info" round block @click="toPage({ path: '/click-delay' })">测试点击延迟</van-button>
           <van-button v-preventReClick type="info" round block @click="scanQRCode">扫一扫</van-button>
           <van-button v-preventReClick type="info" round block @click="getLocation">获取当前位置</van-button>
           <van-button v-preventReClick type="info" round block @click="openLocation">打开内置地图</van-button>
@@ -36,25 +38,27 @@ export default {
   methods: {
     async initContent() {
       try {
-        const queryObj = param2Obj(window.location.href)
-        const result = await hasCode(queryObj)
-        if (!result.valid) {
-          this.$dialog.alert({
-            title: '消息提示',
-            message: result.message,
-            confirmButtonText: '去登录'
-          }).then(() => {
-            if (result.code) {
-              window.history.go(-1)
-              return
-            }
-            this.$router.replace({ name: 'Login' })
+        if (!this.userInfo) {
+          const queryObj = param2Obj(window.location.href)
+          const result = await hasCode(queryObj)
+          if (!result.valid) {
+            this.$dialog.alert({
+              title: '消息提示',
+              message: result.message,
+              confirmButtonText: '去登录'
+            }).then(() => {
+              if (result.code) {
+                this.$router.go(-1)
+                return
+              }
+              this.$router.replace({ name: 'Login' })
+            })
+            return
+          }
+          this.$store.dispatch('user/login', result).then(() => {
+            console.log('登录成功', this.app)
           })
-          return
         }
-        this.$store.dispatch('user/login', result).then(() => {
-          console.log('登录成功', this.app)
-        })
       } catch (err) {
         this.$dialog.alert({
           title: '消息提示',
@@ -65,8 +69,12 @@ export default {
         })
       }
     },
-    nextStep() {
-      this.$router.push({ path: '/list' })
+    toPage(opts) {
+      if (!opts) return
+      if (typeof (opts) === 'string') {
+        window.location.href = opts
+      }
+      this.$router.push(opts)
     },
     scanQRCode() {
       this.appReady('scanQRCode').then(code => {

@@ -10,17 +10,19 @@
         </van-tab>
       </template>
     </van-tabs>
-    <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-      <van-list
-        v-model="loading"
-        :error.sync="error"
-        :finished="finished"
-        error-text="请求失败，点击重新加载"
-        finished-text="没有更多了"
-        @load="() => onLoad(this.active)">
-        <van-cell v-for="item in list" :key="item.id" :title="item.title" @click="goDetail(item)" />
-      </van-list>
-    </van-pull-refresh>
+    <div class="scroller-wrapper">
+      <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+        <van-list
+          v-model="loading"
+          :error.sync="error"
+          :finished="finished"
+          error-text="请求失败，点击重新加载"
+          finished-text="没有更多了"
+          @load="() => onLoad(this.active)">
+          <van-cell v-for="item in list" :key="item.id" :title="item.title" @click="goDetail(item)" />
+        </van-list>
+      </van-pull-refresh>
+    </div>
   </div>
 </template>
 
@@ -124,6 +126,10 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.list-wrapper { display: block; }
+.list-wrapper {
+  .scroller-wrapper {
+    height: calc(100vh - 50px)
+  }
+}
 </style>
 

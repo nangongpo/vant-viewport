@@ -5,13 +5,16 @@ import { showAlert } from '@/jssdk/util'
 import { Promise } from 'core-js'
 
 const state = {
-  showConsole: false, // 显示控制台
+  showDebug: false, // 显示控制台
   device: null, // 设备信息
   app: null, // jssdk
   appReady: () => new Promise() // 封装jssdk， promise
 }
 
 const mutations = {
+  SET_DEBUG(state, bool) {
+    state.showDebug = bool
+  },
   SET_DEVICE(state, device) {
     state.device = device
   },

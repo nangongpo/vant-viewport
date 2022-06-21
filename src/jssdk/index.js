@@ -1,7 +1,8 @@
 import { globalVarMap, getJsApi } from './util'
 
 import { getWechatOptions } from '@/api/wechat'
-const settings = require('@/settings')
+import settings from '@/settings'
+
 const loadScript = require('load-script')
 // 脚本名称
 const scriptSrc = {

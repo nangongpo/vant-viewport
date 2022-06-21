@@ -8,7 +8,6 @@ import store from './store'
 import '@/styles/index.less'
 
 import '@/pwa/register-service-worker'
-import '@/utils/vconsole.js'
 
 import vueNativeNavigation from 'vue-native-navigation'
 import preventReClick from '@/directives/preventReClick'

@@ -86,7 +86,7 @@ export const wechatApi = {
     })
   },
   // 获取地理位置接口, type 0: 返回所有 1：逆地理编码到城市；2：仅获取经纬度、速度和精度。默认为 2, 返回gcj02坐标系的坐标
-  getLocation(type = 0) {
+  getLocation(type = 1) {
     const noRequest = type === 2
     return new Promise((resolve, reject) => {
       wx.getLocation({
@@ -113,16 +113,15 @@ export const wechatApi = {
             if (status !== 0) {
               reject(new Error(`逆地理编码失败: ${message}`))
             }
-            const { address_component = {}, address_reference = {}, ad_info = {}, pois } = result
+            const { address_component = {}, formatted_addresses = {}, ad_info = {}, pois } = result
             const { nation, province, city = '', district = '', street_number = '', street = '' } = address_component
-            const { landmark_l2 = {}} = address_reference
-            const landmark_l2_title = landmark_l2.title || ''
+            const name = formatted_addresses.recommend || ''
             const { nation_code, adcode, city_code } = ad_info
-            const address = `${province}${city}${district}${street_number || street}${landmark_l2_title}`
+            const address = `${province}${city}${district}${street_number || street}${name}`
             // 返回结构参考： https://myjsapi.alipay.com/alipayjsapi/location/get/getLocation.html
             const newResult = {
               openLocation: {
-                name: landmark_l2_title,
+                name,
                 address
               },
               latitude, // 经度
@@ -135,9 +134,9 @@ export const wechatApi = {
               adCode: adcode, // 区域编码
               streetNumber: { street, number: street_number }, // 街道门牌信息，结构是：{street, number}
               address,
-              pois: Array.isArray(pois) && pois.map(v => { // 定位点附近的 POI 信息，结构是：{name, address, ...其他参数}
+              pois: Array.isArray(pois) ? pois.map(v => { // 定位点附近的 POI 信息，结构是：{name, address, ...其他参数}
                 return { ...v, name: v.title }
-              }),
+              }) : undefined,
               origin: result // 接口返回的原始数据
             }
             resolve(newResult)

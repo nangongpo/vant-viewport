@@ -14,8 +14,7 @@ module.exports = {
   },
   globals: {
     wx: true, // 微信jsapi
-    ap: true, // 支付宝jsapi
-    $device: true
+    ap: true // 支付宝jsapi
   },
   ignorePatterns: [
     'public/*'

@@ -36,6 +36,18 @@ const routes = [
     component: Home
   },
   {
+    path: '/click-delay',
+    name: 'ClickDelay',
+    meta: { depth: 1 },
+    component: () => import(/* webpackChunkName: "click-delay" */ '@/views/ClickDelay.vue')
+  },
+  {
+    path: '/form',
+    name: 'Form',
+    meta: { depth: 1 },
+    component: () => import(/* webpackChunkName: "form" */ '@/views/Form.vue')
+  },
+  {
     path: '/list',
     name: 'List',
     meta: { depth: 2 },

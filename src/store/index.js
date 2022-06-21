@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import getters from './getters'
-import createPersistedState from 'vuex-persistedstate'
+import createPersistedState from './plugins/vuex-persistedstate'
 
 Vue.use(Vuex)
 
@@ -16,13 +16,10 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
   return modules
 }, {})
 
+// 持久化存储
 const persistedState = createPersistedState({
   storage: window.sessionStorage,
-  reducer: (state) => {
-    return {
-      user: state.user
-    }
-  }
+  paths: ['user', 'app.showDebug']
 })
 
 export default new Vuex.Store({
