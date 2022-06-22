@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { nanoid } from 'nanoid'
 import sha1 from 'sha1.js'
-import { Dialog } from 'vant'
 import { config } from '@/jssdk/script/wechat'
 
 const allConfig = {
@@ -109,7 +108,7 @@ export async function getWechatOptions(success, error) {
           data
         })
         const reponseData = res.data
-        const { Data, OK, Error } = reponseData
+        const { Data, OK } = reponseData
         if (OK) {
           wechatOptions = {
             debug: isDev,
@@ -123,7 +122,7 @@ export async function getWechatOptions(success, error) {
             getSign()
           }, Data.Expire * 1000)
         } else {
-          Dialog({ message: `获取微信签名有问题，暂时无法使用本系统，请稍后使用（ ${Error} ）` })
+          error && error(new Error(`获取微信签名有问题，暂时无法使用本系统，请稍后使用（ ${reponseData.Error} ）`))
         }
       }
       getSign()

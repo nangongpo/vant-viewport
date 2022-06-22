@@ -3,7 +3,7 @@ import * as shvl from 'shvl'
 
 const defaultOptions = {
   key: 'vuex',
-  paths: undefined, // ['app', "app.showDebug"]
+  paths: undefined,
   reducer: (state, paths) => {
     return Array.isArray(paths)
       ? paths.reduce(function(substate, path) {

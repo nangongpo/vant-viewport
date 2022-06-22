@@ -1,4 +1,4 @@
-importScripts("/vant-viewport/precache-manifest.09e162084ceb1ecfe446071a73eacf7e.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("/vant-viewport/precache-manifest.22aaca33afc400d024597df0947def5e.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 // This is the code piece that GenerateSW mode can't provide for us.
 // This code listens for the user's confirmation to update the app.

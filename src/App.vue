@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div ref="debug" class="debug" :class="{ 'active': showDebug }">关</div>
+    <div v-show="$route.path === '/'" ref="debug" class="debug" :class="{ 'active': showDebug }">关</div>
     <vue-native-navigation>
       <router-view v-show="network" />
     </vue-native-navigation>
@@ -45,7 +45,7 @@ export default {
     // 连续点击5次 控制vconsole
     const debugClick = new ContinuousClick(this.$refs.debug)
     debugClick.on(() => {
-      this.loadVConsole().then(VConsole => {
+      this.loadVConsole().then(() => {
         let flag = false
         if (!this.vConsole) {
           flag = true

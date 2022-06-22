@@ -19,7 +19,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { hasCode } from '@/jssdk/util'
+import { checkCode } from '@/jssdk/util'
 import { param2Obj } from '@/utils'
 
 export default {
@@ -30,35 +30,37 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['app', 'appReady', 'userInfo'])
+    ...mapGetters(['userInfo'])
   },
   mounted() {
-    this.initContent()
+    this.$nextTick(() => {
+      this.initContent()
+    })
   },
   methods: {
     async initContent() {
       try {
-        if (!this.userInfo) {
-          const queryObj = param2Obj(window.location.href)
-          const result = await hasCode(queryObj)
-          if (!result.valid) {
-            this.$dialog.alert({
-              title: '消息提示',
-              message: result.message,
-              confirmButtonText: '去登录'
-            }).then(() => {
-              if (result.code) {
-                this.$router.go(-1)
-                return
-              }
-              this.$router.replace({ name: 'Login' })
-            })
-            return
-          }
-          this.$store.dispatch('user/login', result).then(() => {
-            console.log('登录成功', this.app)
+        if (this.userInfo) return
+        const queryObj = param2Obj(window.location.href)
+        const result = await checkCode(queryObj, this.userInfo)
+        console.log(result)
+        if (!result.valid) {
+          this.$dialog.alert({
+            title: '消息提示',
+            message: result.message,
+            confirmButtonText: '去登录'
+          }).then(() => {
+            if (result.code) {
+              this.$router.go(-1)
+              return
+            }
+            this.$router.replace({ name: 'Login' })
           })
+          return
         }
+        this.$store.dispatch('user/login', result).then(() => {
+          console.log('登录成功', this.app)
+        })
       } catch (err) {
         this.$dialog.alert({
           title: '消息提示',
@@ -77,16 +79,15 @@ export default {
       this.$router.push(opts)
     },
     scanQRCode() {
-      this.appReady('scanQRCode').then(code => {
+      this.$apiReady('scanQRCode').then(code => {
         alert(code)
       }).catch((err) => {
         console.log('scanQRCode', err)
       })
     },
     getLocation() {
-      this.appReady('getLocation').then(res => {
+      this.$apiReady('getLocation').then(res => {
         this.position = res.openLocation
-        console.log('appReady', res)
         this.$dialog.alert({ message: `${res.address}` })
       }).catch(err => {
         this.$dialog.alert({ message: err.message })
@@ -98,14 +99,14 @@ export default {
         this.$dialog.alert({ message: '请先获取获取当前位置' })
         return
       }
-      this.appReady('openLocation', position).then(() => {
+      this.$apiReady('openLocation', position).then(() => {
 
       }).catch(err => {
         this.$dialog.alert({ message: err.message })
       })
     },
     closeWindow() {
-      this.appReady('closeWindow')
+      this.$apiReady('closeWindow')
     }
   }
 }

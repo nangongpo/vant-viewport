@@ -9,8 +9,14 @@ export default {
   name: 'Login',
   created() {
     // 初始化设备信息，并挂载到window上， 不可删除
-    this.$store.dispatch('app/getDevice').then(() => {
-      setTimeout(getCode, 1000)
+    this.$store.dispatch('app/getDevice').then((device) => {
+      if (device.type === 'pc') {
+        // 其他处理
+        // this.$router.push({ name: 'List' })
+        this.$dialog.alert({ title: '登录操作', message: '请添加PC登录的处理', showConfirmButton: false })
+      } else {
+        setTimeout(getCode, 1000)
+      }
     })
   }
 }

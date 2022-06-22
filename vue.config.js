@@ -53,7 +53,7 @@ module.exports = {
       postcss: {
         plugins: [
           pxtorem({
-            rootValue: 37.5,
+            rootValue: 37.5, // iPhone6，设备宽度375px, 基准值=当前设备宽度的1/10
             unitPrecision: 5,
             propList: ['*']
           })

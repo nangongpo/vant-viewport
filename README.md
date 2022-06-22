@@ -2,9 +2,12 @@
 
 ## 项目开发注意事项
   - vant采用按需引入, 默认全局注册的组件有 button、cell、cell-group、image、popup、toast、dialog, 常用组件请自行在 src/plugins/vant.js
-  - 根据运行环境， 自动加载对应环境的jsapi
+  - 根据运行环境，自动加载对应环境的jsapi
     - 微信(jsapi: 1.6.0, window.wx)：https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html
     - 支付宝(jsapi: 3.1.1, window.ap)：http://myjsapi.alipay.com/alipayjsapi/index.html
+  - jsapi的使用（组件内使用）— [api文档](src/jssdk/script)
+      this.$apiReady('api名称', 其他参数)
+  - 滚动时，需要使用 v-scrollbar 组件， 该组件已全局注册
 
 ## 任务
   - [x] pwa做自动更新提示(仅生产环境启用，且需要https) src/pwa
@@ -13,11 +16,12 @@
   - [x] 页面切换时的过场动画 vue-native-navigation
   - [x] 集成VConsole, 连续点击屏幕左上角空白区域 5次
   - [x] 常见app h5接入，这里只要指支付宝、微信
-  - [ ] CSRF与XSS的防御
-  - [ ] 解决ios上输入框输入时，输入法隐藏导致的页面留白问题，及输入法隐藏时某些android机型页面高度变窄，导致用户无法操作等常见问题
+  - [x] 解决ios上输入框输入时，输入法隐藏导致的页面留白问题，及输入法隐藏时某些android机型页面高度变窄，导致用户无法操作等常见问题
+  - [ ] CSRF与XSS的防御 // 'Content-Security-Policy': "default-src 'self'; script-src 'self'; frame-ancestors 'self';object-src 'none'"
+  - [ ] 表单组件的封装
 
 ## 交互流程
-  login (getCode) => home (loadJssdk: 强刷新也会重载) => list => detail
+  login (getCode) => home (登录操作) => list => detail
 
 ## github gh-pages
   ```

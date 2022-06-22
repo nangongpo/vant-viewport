@@ -1,6 +1,6 @@
 // 桥接微信和支付宝
 import Vue from 'vue'
-import store from '@/store'
+import { getAppBrowserName } from '@/utils/device'
 import { getAlipayCode, alipayApi } from './script/alipay'
 import { getWechatCode, wechatApi } from './script/wechat'
 import { customAlphabet } from 'nanoid'
@@ -40,13 +40,8 @@ export function showAlert(opts = defaultAlertInfo) {
 }
 
 // 获取浏览器名称
-function getAppBrowser() {
-  try {
-    return window.$device.appBrowser
-  } catch (err) {
-    showAlert(err.message)
-    throw new Error(err.message)
-  }
+export function getAppBrowser() {
+  return getAppBrowserName()
 }
 
 // 获取code
@@ -63,39 +58,32 @@ export function getCode(opts) {
 }
 
 /**
- * 验证code是否存在, 判断state是否有效, code不能重复加载
+ * 验证code是否有效, 判断state是否有效, code不能重复加载
  * @param {obje} queryObj 链接解析成的对象
  */
-export function hasCode(queryObj = {}) {
+export function checkCode(queryObj = {}, cacheObj) {
   return new Promise((resolve, reject) => {
-    // 页面重定向导致设备信息丢失, 重新获取设备信息，并加载jssdk脚本
-    store.dispatch('app/getDevice').then(device => {
-      const appBrowser = device.appBrowser
-      const state = localStorage.getItem('state')
-      const oldCode = store.getters.code
-      let newCode
-      let valid = false
-      switch (appBrowser) {
-        case 'wechat':
-          newCode = queryObj.code
-          valid = !!newCode && newCode !== oldCode
-          break
-        case 'alipay':
-          newCode = queryObj.auth_code
-          valid = !!newCode && newCode !== oldCode
-          break
-      }
-      valid = valid && state === queryObj.state
-      if (valid) {
-        store.dispatch('app/loadJssdk', device).then(() => {
-          resolve({ valid, code: newCode, message: '' })
-        }).catch(err => {
-          resolve({ valid: false, code: newCode, message: err.message })
-        })
-        return
-      }
-      resolve({ valid, code: newCode, message: '静默登录失败' })
-    }).catch(reject)
+    const appBrowser = getAppBrowser()
+    const state = localStorage.getItem('state')
+    const oldCode = cacheObj?.code
+    let newCode
+    let valid = false
+    switch (appBrowser) {
+      case 'wechat':
+        newCode = queryObj.code
+        valid = newCode && newCode !== oldCode
+        break
+      case 'alipay':
+        newCode = queryObj.auth_code
+        valid = newCode && newCode !== oldCode
+        break
+    }
+    valid = !!valid && state === queryObj.state
+    if (valid) {
+      resolve({ valid, code: newCode, message: '' })
+      return
+    }
+    resolve({ valid, code: newCode, message: '静默登录失败' })
   })
 }
 

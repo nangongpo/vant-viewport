@@ -10,7 +10,7 @@
         </van-tab>
       </template>
     </van-tabs>
-    <div class="scroller-wrapper">
+    <v-scrollbar>
       <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
         <van-list
           v-model="loading"
@@ -22,7 +22,7 @@
           <van-cell v-for="item in list" :key="item.id" :title="item.title" @click="goDetail(item)" />
         </van-list>
       </van-pull-refresh>
-    </div>
+    </v-scrollbar>
   </div>
 </template>
 
@@ -56,15 +56,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['app', 'userInfo'])
+    ...mapGetters(['userInfo'])
   },
   watch: {},
   created() {
     console.log('list page')
     this.getList()
-  },
-  mounted() {
-    console.log(this.app)
   },
   methods: {
     switchActive(name, title) {

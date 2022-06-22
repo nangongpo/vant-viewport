@@ -7,5 +7,5 @@ module.exports = {
   outputDir: 'dist',
   assetsDir: 'static',
   devPort: 8080,
-  previewPort: 8081
+  previewPort: 8080
 }

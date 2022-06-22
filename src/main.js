@@ -1,4 +1,4 @@
-import 'amfe-flexible'
+import './utils/lib-flexible'
 
 import Vue from 'vue'
 import App from './App.vue'
@@ -12,24 +12,13 @@ import '@/pwa/register-service-worker'
 import vueNativeNavigation from 'vue-native-navigation'
 import preventReClick from '@/directives/preventReClick'
 import vant from '@/plugins/vant'
+import { apiReady } from '@/jssdk'
 
 Vue.use(vueNativeNavigation)
 Vue.use(preventReClick)
 Vue.use(vant)
 
-router.beforeEach((to, from, next) => {
-  // 登录页
-  const whiteList = ['/', '/login']
-  if (!whiteList.includes(to.path)) {
-    store.dispatch('app/getDevice').then(device => {
-      store.dispatch('app/loadJssdk', device)
-      next()
-    })
-    return
-  }
-  next()
-})
-
+Vue.prototype.$apiReady = apiReady
 Vue.config.productionTip = false
 
 new Vue({
