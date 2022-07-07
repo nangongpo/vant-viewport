@@ -6,10 +6,10 @@
 
 <script>
 export default {
-  name: 'VScrollbar',
+  name: 'Scrollbar',
   data() {
     return {
-      classname: 'v-scrollbar',
+      classname: 'scrollbar',
       maxHeight: '100vh'
     }
   },
@@ -28,3 +28,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.scrollbar {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+</style>

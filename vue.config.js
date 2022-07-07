@@ -58,6 +58,11 @@ module.exports = {
             propList: ['*']
           })
         ]
+      },
+      less: {
+        modifyVars: {
+          hack: `true; @import "~@/styles/vant-theme.less";`
+        }
       }
     }
   },
@@ -89,6 +94,13 @@ module.exports = {
 
     // when there are many pages, it will cause too many meaningless requests
     config.plugins.delete('prefetch')
+
+    // 10kb以内的图片会被打包成内联元素
+    config.module
+      .rule('images')
+      .use('url-loader')
+      .loader('url-loader')
+      .tap(options => Object.assign(options, { limit: 10240 }))
 
     // CopyWebpackPlugin插件
     // config

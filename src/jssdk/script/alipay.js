@@ -1,5 +1,4 @@
-import { param } from '@/utils'
-import { isProd, noncestr } from '../util'
+import { isProd, noncestr, createQueryString } from '../util'
 
 // 支付宝 网页与移动应用： https://open.alipay.com/platform/appManage.htm#/app/2021003130656600/overview
 const devConfig = {
@@ -31,7 +30,7 @@ export function getAlipayCode(opts = {}) {
   // 保存state
   localStorage.setItem('state', params.state)
   // https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=商户的APPID&scope=auth_user&redirect_uri=ENCODED_URL&state=init
-  window.location.href = `${config.url}?${param(params)}`
+  window.location.href = `${config.url}?${createQueryString(params)}`
 }
 
 // 重写jssdk, 方法名称以微信为准, 入參基本与微信一致

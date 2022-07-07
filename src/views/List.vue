@@ -10,7 +10,7 @@
         </van-tab>
       </template>
     </van-tabs>
-    <v-scrollbar>
+    <scrollbar>
       <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
         <van-list
           v-model="loading"
@@ -22,7 +22,7 @@
           <van-cell v-for="item in list" :key="item.id" :title="item.title" @click="goDetail(item)" />
         </van-list>
       </van-pull-refresh>
-    </v-scrollbar>
+    </scrollbar>
   </div>
 </template>
 

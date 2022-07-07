@@ -1,4 +1,4 @@
-# weixin_pass_vant
+# vant-viewport
 
 ## 项目开发注意事项
   - vant采用按需引入, 默认全局注册的组件有 button、cell、cell-group、image、popup、toast、dialog, 常用组件请自行在 src/plugins/vant.js
@@ -7,7 +7,7 @@
     - 支付宝(jsapi: 3.1.1, window.ap)：http://myjsapi.alipay.com/alipayjsapi/index.html
   - jsapi的使用（组件内使用）— [api文档](src/jssdk/script)
       this.$apiReady('api名称', 其他参数)
-  - 滚动时，需要使用 v-scrollbar 组件， 该组件已全局注册
+  - 滚动时，需要使用 scrollbar 组件， 该组件已全局注册
 
 ## 任务
   - [x] pwa做自动更新提示(仅生产环境启用，且需要https) src/pwa
@@ -18,7 +18,11 @@
   - [x] 常见app h5接入，这里只要指支付宝、微信
   - [x] 解决ios上输入框输入时，输入法隐藏导致的页面留白问题，及输入法隐藏时某些android机型页面高度变窄，导致用户无法操作等常见问题
   - [ ] CSRF与XSS的防御 // 'Content-Security-Policy': "default-src 'self'; script-src 'self'; frame-ancestors 'self';object-src 'none'"
-  - [ ] 表单组件的封装
+  - [ ] 组件封装
+    - [ ] [与vant相关的组件](src/plugins/vant-plus/)
+      - [x] scrollbar 滚动组件 (已全局注册)
+      - [x] demo-block 表单的标题 (已全局注册)
+      - [x] popup-signature 签名板
 
 ## 交互流程
   login (getCode) => home (登录操作) => list => detail

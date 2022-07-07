@@ -15,8 +15,8 @@ body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
+  font-size: 12px;
   background-color: #ececec;
   padding-bottom: env(safe-area-inset-bottom);
   box-sizing: border-box;
@@ -24,7 +24,7 @@ body {
 
 #app {
   height: 100%;
-  // debug开关位置
+  // debug开关位置, 右上角
   .debug {
     width: 60px;
     height: 60px;
@@ -45,13 +45,11 @@ body {
   }
   // vue-native-navigation 引入的样式
   .router {
-    overflow: hidden
+    overflow: hidden;
   }
-
-  // v-scrollbar组件添加的样式
-  .v-scrollbar {
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
+  // scrollbar组件样式
+  .scrollbar {
+    overflow-y: auto;
   }
 }
 
@@ -60,5 +58,66 @@ body {
 }
 
 .blue-bg {
-  background: linear-gradient(332deg, #015EEA 0%, #00C0FA 100%);
+  background: @gradient-blue;
+}
+
+.red-bg {
+  background: @gradient-red !important;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-primary {
+  color: @blue;
+}
+
+.h1 {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.h2 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.h3 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.h4 {
+  font-size: 16px;
+}
+
+.h5 {
+  font-size: 14px;
+}
+
+.h6 {
+  font-size: 12px;
+}
+
+.van-button--plain {
+  &.text {
+    background-color: transparent;
+    border: none;
+    line-height: inherit;
+    height: auto;
+    padding: 0;
+  }
 }

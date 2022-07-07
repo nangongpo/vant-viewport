@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Home from '@/views/Home.vue'
-
 // hack router push callback
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location, onResolve, onReject) {
@@ -33,7 +31,7 @@ const routes = [
     path: '/',
     name: 'Home',
     meta: { depth: 1 },
-    component: Home
+    component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue')
   },
   {
     path: '/click-delay',
@@ -44,8 +42,14 @@ const routes = [
   {
     path: '/form',
     name: 'Form',
-    meta: { depth: 1 },
+    meta: { depth: 2 },
     component: () => import(/* webpackChunkName: "form" */ '@/views/Form.vue')
+  },
+  {
+    path: '/signature',
+    name: 'Signature',
+    meta: { depth: 2 },
+    component: () => import(/* webpackChunkName: "form" */ '@/views/Signature.vue')
   },
   {
     path: '/list',

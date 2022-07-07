@@ -1,6 +1,5 @@
 import { Button, Cell, CellGroup, Image, Popup, Toast, Dialog } from 'vant'
-import VantPlus from './vant-plus'
-console.log(VantPlus)
+import { DemoBlock, VScrollbar } from './vant-plus'
 
 const components = [
   Button,
@@ -10,7 +9,8 @@ const components = [
   Popup,
   Toast,
   Dialog,
-  ...VantPlus
+  DemoBlock,
+  VScrollbar
 ]
 
 export default {

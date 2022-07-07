@@ -10,15 +10,13 @@ import '@/styles/index.less'
 import '@/pwa/register-service-worker'
 
 import vueNativeNavigation from 'vue-native-navigation'
-import preventReClick from '@/directives/preventReClick'
+import click from '@/directives/click'
 import vant from '@/plugins/vant'
-import { apiReady } from '@/jssdk'
 
 Vue.use(vueNativeNavigation)
-Vue.use(preventReClick)
+Vue.use(click)
 Vue.use(vant)
 
-Vue.prototype.$apiReady = apiReady
 Vue.config.productionTip = false
 
 new Vue({

@@ -1,6 +1,6 @@
 <template>
-  <div class="wrapper scroller-wrapper">
-    <h2>尝试检测移动端click延时</h2>
+  <scrollbar class="wrapper h5">
+    <div class="h2 text-center">尝试检测移动端click延时</div>
 
     <ul>
       取消click延时响应的两种做法：
@@ -17,7 +17,7 @@
 
     <div class="div">click me and console.log('fast click')</div>
     <p class="p">click me and console.log('normal, slow and delay click')</p>
-  </div>
+  </scrollbar>
 </template>
 
 <script>

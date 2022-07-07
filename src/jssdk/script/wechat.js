@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars */
 import axios from 'axios'
-import { param } from '@/utils'
-import { isProd, noncestr } from '../util'
+import { isProd, noncestr, createQueryString } from '../util'
 
-// 腾讯地图开发密匙
+// 腾讯地图开发密匙，个人逆地址解析 调用量10000， 企业开发者最高可申请300万免费配额
 const TecentMapKey = isProd ? '' : 'OUBBZ-NY2CF-JPVJZ-JJEQV-6QQNZ-XHB2W'
 // WebService API 请求地址
 const TecentWebService = isProd ? 'https://apis.map.qq.com' : ''
@@ -38,7 +37,7 @@ export function getWechatCode(opts = {}) {
   const redirect_url = query ? uri + '?' + query : uri
   const params = {
     appid: appid,
-    redirect_uri: redirect_url,
+    redirect_uri: encodeURIComponent(redirect_url),
     response_type: 'code',
     scope: config.scope,
     state: noncestr('weixin')
@@ -46,7 +45,7 @@ export function getWechatCode(opts = {}) {
   // 保存state
   localStorage.setItem('state', params.state)
   // https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx520c15f417810387&redirect_uri=https%3A%2F%2Fchong.qq.com%2Fphp%2Findex.php%3Fd%3D%26c%3DwxAdapter%26m%3DmobileDeal%26showwxpaytitle%3D1%26vb2ctag%3D4_2030_5_1194_60&response_type=code&scope=snsapi_base&state=123#wechat_redirect
-  window.location.href = `${config.url}?${param(params)}#wechat_redirect`
+  window.location.href = `${config.url}?${createQueryString(params)}#wechat_redirect`
 }
 
 // 微信jssdk文档：https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html

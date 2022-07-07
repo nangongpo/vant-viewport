@@ -1,12 +1,8 @@
 // 桥接微信和支付宝
-import Vue from 'vue'
 import { getAppBrowserName } from '@/utils/device'
 import { getAlipayCode, alipayApi } from './script/alipay'
 import { getWechatCode, wechatApi } from './script/wechat'
 import { customAlphabet } from 'nanoid'
-
-// 随机字符串
-export const noncestr = (seed, number = 12) => customAlphabet(`1234567890${seed}jssdk`, 12)(number)
 
 // 生产环境
 export const isProd = process.env.NODE_ENV === 'production'
@@ -17,26 +13,17 @@ export const globalVarMap = {
   'wechat': 'wx'
 }
 
-/**
- * 使用挂载到Vue原型上的弹窗方法
- * @param {string|object} opts
- * @returns
- */
-const defaultAlertInfo = {
-  title: '消息提示',
-  width: '320px',
-  message: '未知异常',
-  theme: 'round'
-}
+// 随机字符串
+export const noncestr = (seed, number = 12) => customAlphabet(`1234567890${seed}jssdk`, 12)(number)
 
-export function showAlert(opts = defaultAlertInfo) {
-  if (typeof (opts) === 'string') {
-    opts = {
-      ...defaultAlertInfo,
-      message: `程序异常：${opts}`
-    }
+// 对象转get请求参数, 不编码
+export function createQueryString(obj) {
+  if (!obj) return ''
+  const tmpArr = []
+  for (const key in obj) {
+    tmpArr.push(key + '=' + obj[key])
   }
-  return Vue.prototype.$dialog.alert(opts)
+  return tmpArr.join('&')
 }
 
 // 获取浏览器名称

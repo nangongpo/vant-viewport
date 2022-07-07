@@ -1,16 +1,17 @@
 <template>
   <div class="home">
     <transition name="van-fade" appear :duration="1000">
-      <div v-if="!!userInfo">
+      <div v-if="!!userInfo" class="text-center">
         <img alt="Vue logo" src="~@/assets/logo.png">
         <div class="button-group">
-          <van-button v-preventReClick type="info" round block @click="toPage({ path: '/list' })">下一步</van-button>
-          <van-button v-preventReClick type="info" round block @click="toPage({ path: '/form' })">表单</van-button>
-          <van-button v-preventReClick type="info" round block @click="toPage({ path: '/click-delay' })">测试点击延迟</van-button>
-          <van-button v-preventReClick type="info" round block @click="scanQRCode">扫一扫</van-button>
-          <van-button v-preventReClick type="info" round block @click="getLocation">获取当前位置</van-button>
-          <van-button v-preventReClick type="info" round block @click="openLocation">打开内置地图</van-button>
-          <van-button v-preventReClick type="info" round block @click="closeWindow">关闭当前页面</van-button>
+          <van-button type="info" round block @click="toPage({ path: '/list' })">下一步</van-button>
+          <van-button type="info" round block @click="toPage({ path: '/form' })">表单</van-button>
+          <van-button type="info" round block @click="toPage({ path: '/signature' })">签名</van-button>
+          <van-button type="info" round block @click="toPage({ path: '/click-delay' })">测试点击延迟</van-button>
+          <van-button type="info" round block v-click="scanQRCode">扫一扫</van-button>
+          <van-button type="info" round block v-click="getLocation">获取当前位置</van-button>
+          <van-button type="info" round block v-click="openLocation">打开内置地图</van-button>
+          <van-button type="info" round block v-click="closeWindow">关闭当前页面</van-button>
         </div>
       </div>
     </transition>
@@ -19,6 +20,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { apiReady } from '@/jssdk'
 import { checkCode } from '@/jssdk/util'
 import { param2Obj } from '@/utils'
 
@@ -79,14 +81,14 @@ export default {
       this.$router.push(opts)
     },
     scanQRCode() {
-      this.$apiReady('scanQRCode').then(code => {
+      apiReady('scanQRCode').then(code => {
         alert(code)
       }).catch((err) => {
         console.log('scanQRCode', err)
       })
     },
     getLocation() {
-      this.$apiReady('getLocation').then(res => {
+      apiReady('getLocation').then(res => {
         this.position = res.openLocation
         this.$dialog.alert({ message: `${res.address}` })
       }).catch(err => {
@@ -99,14 +101,14 @@ export default {
         this.$dialog.alert({ message: '请先获取获取当前位置' })
         return
       }
-      this.$apiReady('openLocation', position).then(() => {
+      apiReady('openLocation', position).then(() => {
 
       }).catch(err => {
         this.$dialog.alert({ message: err.message })
       })
     },
     closeWindow() {
-      this.$apiReady('closeWindow')
+      apiReady('closeWindow')
     }
   }
 }
