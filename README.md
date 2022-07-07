@@ -6,7 +6,10 @@
     - 微信(jsapi: 1.6.0, window.wx)：https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html
     - 支付宝(jsapi: 3.1.1, window.ap)：http://myjsapi.alipay.com/alipayjsapi/index.html
   - jsapi的使用（组件内使用）— [api文档](src/jssdk/script)
-      this.$apiReady('api名称', 其他参数)
+      ```
+      import { apiReady } from '@/jssdk'
+      apiReady('api名称', 其他参数)
+      ```
   - 滚动时，需要使用 scrollbar 组件， 该组件已全局注册
 
 ## 任务
@@ -20,7 +23,7 @@
   - [ ] CSRF与XSS的防御 // 'Content-Security-Policy': "default-src 'self'; script-src 'self'; frame-ancestors 'self';object-src 'none'"
   - [ ] 组件封装
     - [ ] [与vant相关的组件](src/plugins/vant-plus/)
-      - [x] scrollbar 滚动组件 (已全局注册)
+      - [x] scrollbar 滚动组件 (已全局注册)s
       - [x] demo-block 表单的标题 (已全局注册)
       - [x] popup-signature 签名板
 
