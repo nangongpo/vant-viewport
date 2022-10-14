@@ -1,0 +1,123 @@
+// fix: iOS 上拉边界下拉出现空白
+html, body {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+body {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+  font-size: 12px;
+  background-color: #ececec;
+  padding-bottom: env(safe-area-inset-bottom);
+  box-sizing: border-box;
+}
+
+#app {
+  height: 100%;
+  // debug开关位置, 右上角
+  .debug {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    opacity: 0;
+    &.active {
+      opacity: 1;
+      border-bottom-left-radius: 12px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  // vue-native-navigation 引入的样式
+  .router {
+    overflow: hidden;
+  }
+  // scrollbar组件样式
+  .scrollbar {
+    overflow-y: auto;
+  }
+}
+
+.app-container {
+  padding: 15px;
+}
+
+.blue-bg {
+  background: @gradient-blue;
+}
+
+.red-bg {
+  background: @gradient-red !important;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-primary {
+  color: @blue;
+}
+
+.h1 {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.h2 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.h3 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.h4 {
+  font-size: 16px;
+}
+
+.h5 {
+  font-size: 14px;
+}
+
+.h6 {
+  font-size: 12px;
+}
+
+.van-button--plain {
+  &.text {
+    background-color: transparent;
+    border: none;
+    line-height: inherit;
+    height: auto;
+    padding: 0;
+  }
+}
