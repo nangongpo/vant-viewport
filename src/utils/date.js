@@ -12,3 +12,5 @@ export function dateDiff(date1, date2) {
   const y = dayjs(date2)
   return Math.abs(x.diff(y))
 }
+
+export default dayjs
