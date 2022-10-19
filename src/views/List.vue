@@ -1,39 +1,24 @@
 <template>
-  <div
-		class="list-wrapper">
-		<van-tabs
-			v-model="active"
-			sticky
-			@click="switchActive">
-			<template v-for="(item, index) in activeList">
-				<van-tab
-					:title="item.title"
-					:name="item.name"
-					:dot="activeDot[item.name]"
-					:key="index">
-				</van-tab>
-			</template>
-		</van-tabs>
-		<scrollbar>
-			<van-pull-refresh
-				v-model="refreshing"
-				@refresh="onRefresh">
-				<van-list
-					v-model="loading"
-					:error.sync="error"
-					:finished="finished"
-					error-text="请求失败，点击重新加载"
-					finished-text="没有更多了"
-					@load="() => onLoad(this.active)">
-					<van-cell
-						v-for="item in list"
-						:key="item.id"
-						:title="item.title"
-						@click="goDetail(item)" />
-				</van-list>
-			</van-pull-refresh>
-		</scrollbar>
-	</div>
+  <div class="list-wrapper">
+    <van-tabs v-model="active" sticky @click="switchActive">
+      <template v-for="(item, index) in activeList">
+        <van-tab :title="item.title" :name="item.name" :dot="activeDot[item.name]" :key="index"> </van-tab>
+      </template>
+    </van-tabs>
+    <scrollbar>
+      <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+        <van-list
+          v-model="loading"
+          :error.sync="error"
+          :finished="finished"
+          error-text="请求失败，点击重新加载"
+          finished-text="没有更多了"
+          @load="() => onLoad(this.active)">
+          <van-cell v-for="item in list" :key="item.id" :title="item.title" @click="goDetail(item)" />
+        </van-list>
+      </van-pull-refresh>
+    </scrollbar>
+  </div>
 </template>
 
 <script>

@@ -15,28 +15,16 @@
         <van-field name="checkboxGroup" label="复选框组">
           <template #input>
             <van-checkbox-group v-model="checkboxGroup" direction="horizontal">
-              <van-checkbox name="1" shape="square">
-                复选框
-                1
-              </van-checkbox>
-              <van-checkbox name="2" shape="square">
-                复选框
-                2
-              </van-checkbox>
+              <van-checkbox name="1" shape="square"> 复选框 1 </van-checkbox>
+              <van-checkbox name="2" shape="square"> 复选框 2 </van-checkbox>
             </van-checkbox-group>
           </template>
         </van-field>
         <van-field name="radio" label="单选框">
           <template #input>
             <van-radio-group v-model="radio" direction="horizontal">
-              <van-radio name="1">
-                单选框
-                1
-              </van-radio>
-              <van-radio name="2">
-                单选框
-                2
-              </van-radio>
+              <van-radio name="1"> 单选框 1 </van-radio>
+              <van-radio name="2"> 单选框 2 </van-radio>
             </van-radio-group>
           </template>
         </van-field>
@@ -60,20 +48,18 @@
             <van-uploader v-model="uploader" max-count="2" />
           </template>
         </van-field>
-        <field-picker v-model="picker" name="picker" label="选择器" placeholder="选择器" :get-options="getPickerOptions" />
+        <field-picker
+          v-model="picker"
+          name="picker"
+          label="选择器"
+          placeholder="选择器"
+          :get-options="getPickerOptions" />
         <field-datetime-picker v-model="datetimePicker" name="datetimePicker" label="时间选择" placeholder="时间选择" />
         <field-calendar v-model="calendar" name="calendar" label="日历选择" type="range" placeholder="日历选择" />
         <field-area v-model="area" name="area" label="省市区选择" placeholder="省市区选择" :options="areaList" />
-        <div
-  style="margin: 16px 16px 0">
-  <van-button
-    round
-    block
-    type="info"
-    native-type="submit">
-    提交
-  </van-button>
-</div>
+        <div style="margin: 16px 16px 0">
+          <van-button round block type="info" native-type="submit"> 提交 </van-button>
+        </div>
       </van-form>
     </scrollbar>
   </demo-block>

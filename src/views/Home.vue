@@ -2,7 +2,7 @@
   <div class="home">
     <transition name="van-fade" appear :duration="1000">
       <div v-if="!!userInfo" class="text-center">
-        <img alt="Vue logo" src="~@/assets/logo.png">
+        <img alt="Vue logo" src="~@/assets/logo.png" />
         <div class="button-group">
           <van-button type="info" round block @click="toPage({ path: '/list' })">下一步</van-button>
           <van-button type="info" round block @click="toPage({ path: '/form' })">表单</van-button>

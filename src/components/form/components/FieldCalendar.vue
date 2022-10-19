@@ -1,54 +1,54 @@
 <template>
   <div class="van-cell van-field2 field-calendar" :class="classname">
-		<van-field
-			:label="label"
-			:value="getSelectedLabel(value)"
-			:disabled="disabled"
-			:readonly="true"
-			:clickable="!disabled"
-			v-bind="$attrs"
-			v-on="$listeners"
-			@click="openPopup" />
-		<!-- 用于表单校验，需设置name -->
-		<van-field
-			:name="name"
-			:label="label"
-			:value="isArrayDate(value) ? undefined : value"
-			:disabled="disabled"
-			:readonly="true"
-			:clickable="!disabled"
-			style="display: none">
-			<template v-if="isArrayDate(value)" #input>
-				<!-- van-checkbox-group组件支持 any[], 触发表单更新 -->
-				<van-checkbox-group :value="value" />
-			</template>
-		</van-field>
-		<!-- 弹窗展示 poppable = true -->
-		<van-calendar
-			v-model="showPopup"
-			v-bind="popupAttrs"
-			:type="type"
-			:title="title || label"
-			:readonly="readonly"
-			:color="color"
-			:min-date="minDate"
-			:max-date="maxDate"
-			:default-date="currentData"
-			:row-height="rowHeight"
-			:formatter="formatter"
-			:poppable="true"
-			:show-mark="showMark"
-			:show-title="showTitle"
-			:show-subtitle="showSubtitle"
-			:show-confirm="showConfirm"
-			:confirm-text="confirmText"
-			:confirm-disabled-text="confirmDisabledText"
-			:first-day-of-week="firstDayOfWeek"
-			:max-range="maxRange"
-			:range-prompt="rangePrompt"
-			:allow-same-day="allowSameDay"
-			@confirm="onConfirm" />
-	</div>
+    <van-field
+      :label="label"
+      :value="getSelectedLabel(value)"
+      :disabled="disabled"
+      :readonly="true"
+      :clickable="!disabled"
+      v-bind="$attrs"
+      v-on="$listeners"
+      @click="openPopup" />
+    <!-- 用于表单校验，需设置name -->
+    <van-field
+      :name="name"
+      :label="label"
+      :value="isArrayDate(value) ? undefined : value"
+      :disabled="disabled"
+      :readonly="true"
+      :clickable="!disabled"
+      style="display: none">
+      <template v-if="isArrayDate(value)" #input>
+        <!-- van-checkbox-group组件支持 any[], 触发表单更新 -->
+        <van-checkbox-group :value="value" />
+      </template>
+    </van-field>
+    <!-- 弹窗展示 poppable = true -->
+    <van-calendar
+      v-model="showPopup"
+      v-bind="popupAttrs"
+      :type="type"
+      :title="title || label"
+      :readonly="readonly"
+      :color="color"
+      :min-date="minDate"
+      :max-date="maxDate"
+      :default-date="currentData"
+      :row-height="rowHeight"
+      :formatter="formatter"
+      :poppable="true"
+      :show-mark="showMark"
+      :show-title="showTitle"
+      :show-subtitle="showSubtitle"
+      :show-confirm="showConfirm"
+      :confirm-text="confirmText"
+      :confirm-disabled-text="confirmDisabledText"
+      :first-day-of-week="firstDayOfWeek"
+      :max-range="maxRange"
+      :range-prompt="rangePrompt"
+      :allow-same-day="allowSameDay"
+      @confirm="onConfirm" />
+  </div>
 </template>
 
 <script>
