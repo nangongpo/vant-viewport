@@ -1,66 +1,60 @@
 <template>
-  <div
-    class="van-cell van-field2 field-calendar"
-    :class="classname"
-  >
-    <van-field
-      :label="label"
-      :value="getSelectedLabel(value)"
-      :disabled="disabled"
-      :readonly="true"
-      :clickable="!disabled"
-      v-bind="$attrs"
-      v-on="$listeners"
-      @click="showPopup = true"
-    />
-    <!-- 用于表单校验，需设置name -->
-    <van-field
-      :name="name"
-      :label="label"
-      :value="isArrayDate(value) ? undefined : value"
-      :disabled="disabled"
-      :readonly="true"
-      :clickable="!disabled"
-      style="display: none"
-    >
-      <template v-if="isArrayDate(value)" #input>
-        <!-- van-checkbox-group组件支持 any[], 触发表单更新 -->
-        <van-checkbox-group :value="value" />
-      </template>
-    </van-field>
-    <!-- 弹窗展示 poppable = true -->
-    <van-calendar
-      v-model="showPopup"
-      v-bind="popupAttrs"
-      :type="type"
-      :title="title || label"
-      :color="color"
-      :min-date="minDate"
-      :max-date="maxDate"
-      :default-date="currentData"
-      :row-height="rowHeight"
-      :formatter="formatter"
-      :poppable="true"
-      :show-mark="showMark"
-      :show-title="showTitle"
-      :show-subtitle="showSubtitle"
-      :show-confirm="showConfirm"
-      :readonly="readonly"
-      :confirm-text="confirmText"
-      :confirm-disabled-text="confirmDisabledText"
-      :first-day-of-week="firstDayOfWeek"
-      :max-range="maxRange"
-      :range-prompt="rangePrompt"
-      :allow-same-day="allowSameDay"
-      @confirm="onConfirm"
-    />
-  </div>
+  <div class="van-cell van-field2 field-calendar" :class="classname">
+		<van-field
+			:label="label"
+			:value="getSelectedLabel(value)"
+			:disabled="disabled"
+			:readonly="true"
+			:clickable="!disabled"
+			v-bind="$attrs"
+			v-on="$listeners"
+			@click="openPopup" />
+		<!-- 用于表单校验，需设置name -->
+		<van-field
+			:name="name"
+			:label="label"
+			:value="isArrayDate(value) ? undefined : value"
+			:disabled="disabled"
+			:readonly="true"
+			:clickable="!disabled"
+			style="display: none">
+			<template v-if="isArrayDate(value)" #input>
+				<!-- van-checkbox-group组件支持 any[], 触发表单更新 -->
+				<van-checkbox-group :value="value" />
+			</template>
+		</van-field>
+		<!-- 弹窗展示 poppable = true -->
+		<van-calendar
+			v-model="showPopup"
+			v-bind="popupAttrs"
+			:type="type"
+			:title="title || label"
+			:readonly="readonly"
+			:color="color"
+			:min-date="minDate"
+			:max-date="maxDate"
+			:default-date="currentData"
+			:row-height="rowHeight"
+			:formatter="formatter"
+			:poppable="true"
+			:show-mark="showMark"
+			:show-title="showTitle"
+			:show-subtitle="showSubtitle"
+			:show-confirm="showConfirm"
+			:confirm-text="confirmText"
+			:confirm-disabled-text="confirmDisabledText"
+			:first-day-of-week="firstDayOfWeek"
+			:max-range="maxRange"
+			:range-prompt="rangePrompt"
+			:allow-same-day="allowSameDay"
+			@confirm="onConfirm" />
+	</div>
 </template>
 
 <script>
 import { Field, Calendar, CheckboxGroup } from 'vant'
-import popupAttrs from './utils/popup-attrs'
-import dayjs, { dateFormat, toDate } from './utils/date'
+import popupAttrs from '../utils/popup-attrs'
+import dayjs, { dateFormat, toDate } from '../utils/date'
 
 const shouldArrayDate = (type) => ['range', 'multiple'].includes(type)
 
@@ -160,7 +154,9 @@ export default {
     currentData() {
       const { isArrayDate, value, defaultDate } = this
       if (value === null) return value
-      const _value = isArrayDate(value) ? value.filter(v => Boolean(v)).map(v => toDate(v)) : toDate(value)
+      const _value = isArrayDate(value)
+        ? value.filter(v => Boolean(v)).map(v => toDate(v))
+        : toDate(value)
 
       if (_value && !_value.length) {
         return null
@@ -170,14 +166,22 @@ export default {
     }
   },
   methods: {
+    openPopup() {
+      this.showPopup = true
+    },
+    // item array|string
     onConfirm(item) {
-      const newValue = this.dateFormat2(item, true)
+      let newValue = item
+      if (newValue !== undefined) {
+        newValue = this.dateFormat2(item, true)
+      }
       // console.log('onConfirm', item, newValue)
       this.$emit('input', newValue)
-      this.$emit('change', newValue)
+      this.$emit('change', newValue, item)
       this.showPopup = false
     },
     getSelectedLabel(value) {
+      if (!value) return value
       return this.dateFormat2(value)
     },
     isArrayDate(value) {

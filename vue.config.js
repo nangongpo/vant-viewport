@@ -39,13 +39,13 @@ module.exports = {
       }
     }
   },
-  pwa: {
-    name: name,
-    workboxPluginMode: 'InjectManifest',
-    workboxOptions: {
-      swSrc: path.resolve(__dirname, 'src/pwa/service-worker.js')
-    }
-  },
+  // pwa: {
+  //   name: name,
+  //   workboxPluginMode: 'InjectManifest',
+  //   workboxOptions: {
+  //     swSrc: path.resolve(__dirname, 'src/pwa/service-worker.js')
+  //   }
+  // },
   css: {
     // extract: IS_PROD,
     sourceMap: false,
@@ -128,16 +128,14 @@ module.exports = {
                   test: /[\\/]node_modules[\\/]/,
                   priority: 10,
                   maxInitialRequests: 5,
+                  maxSize: 450 * 1024,
+                  reuseExistingChunk: true,
                   chunks: 'initial' // only package third parties that are initially dependent
                 },
-                corejs: {
-                  name: 'chunk-core-js', // split elementUI into a single package
-                  priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
-                  test: /[\\/]node_modules[\\/]_?core-js(.*)/ // in order to adapt to cnpm
-                },
                 vant: {
-                  name: 'chunk-vant', // split elementUI into a single package
-                  priority: 30, // the weight needs to be larger than libs and app or it will be packaged into libs or app
+                  name: 'chunk-vant',
+                  priority: 20,
+                  maxSize: 300 * 1024,
                   test: /[\\/]node_modules[\\/]_?vant(.*)/ // in order to adapt to cnpm
                 },
                 commons: {

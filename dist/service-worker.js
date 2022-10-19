@@ -1,16 +1,34 @@
-importScripts("/vant-viewport/precache-manifest.cee799f8dc0fc52e4d23427aecab02fc.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+/**
+ * Welcome to your Workbox-powered service worker!
+ *
+ * You'll need to register this file in your web app and you should
+ * disable HTTP caching for this file too.
+ * See https://goo.gl/nhQhGp
+ *
+ * The rest of the code is auto-generated. Please don't update this file
+ * directly; instead, make changes to your Workbox build configuration
+ * and re-run your build process.
+ * See https://goo.gl/2aRDsh
+ */
 
-// This is the code piece that GenerateSW mode can't provide for us.
-// This code listens for the user's confirmation to update the app.
-self.addEventListener('message', (e) => {
-  if (e.data) {
-    if (e.data === 'skipWaiting') {
-      self.skipWaiting()
-    }
+importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+
+importScripts(
+  "/vant-viewport/precache-manifest.a130a1b304c8953b66b66b0d1fb4cb24.js"
+);
+
+workbox.core.setCacheNameDetails({prefix: "vant-viewport"});
+
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
   }
-})
+});
 
-/* eslint-disable no-undef */
-workbox.core.clientsClaim()
-workbox.precaching.precacheAndRoute(self.__precacheManifest || [])
-
+/**
+ * The workboxSW.precacheAndRoute() method efficiently caches and responds to
+ * requests for URLs in the manifest.
+ * See https://goo.gl/S9QRab
+ */
+self.__precacheManifest = [].concat(self.__precacheManifest || []);
+workbox.precaching.precacheAndRoute(self.__precacheManifest, {});

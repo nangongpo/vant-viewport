@@ -28,7 +28,7 @@ function loadJssdk() {
       return reslove(formatApi(loadedJS()))
     }
     const src = getScriptSrc(scriptName)
-    const opts = { attrs: {}}
+    const opts = { attrs: {} }
     loadScript(src, opts, (err) => {
       if (err) {
         return reject(err)

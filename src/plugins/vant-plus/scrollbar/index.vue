@@ -1,5 +1,9 @@
 <template>
-  <div :style="{ maxHeight: maxHeight }" :class="classname" v-bind="$attrs" v-on="$listeners">
+  <div
+:style="{ maxHeight: maxHeight }"
+:class="classname"
+v-bind="$attrs"
+v-on="$listeners">
     <slot></slot>
   </div>
 </template>

@@ -9,8 +9,7 @@
       :clickable="!disabled"
       v-bind="$attrs"
       v-on="$listeners"
-      @click="openPopup"
-    >
+      @click="openPopup">
     </van-field>
     <!-- 用于表单校验，需设置name -->
     <van-field
@@ -21,45 +20,40 @@
       :readonly="true"
       :clickable="!disabled"
       v-bind="$attrs"
-      style="display: none"
-    />
-    <van-popup
-      v-model="showPopup"
-      v-bind="popupAttrs"
-    >
+      style="display: none" />
+    <van-popup v-model="showPopup" v-bind="popupAttrs">
       <van-picker
         :columns="popupOptions"
         :title="title || label"
         :confirm-button-text="confirmButtonText"
         :cancel-button-text="cancelButtonText"
-        :value-key="defaultProps.label"
-        :toolbar-position="toolbarPosition"
-        :show-toolbar="showToolbar"
         :loading="popupLoading"
         :readonly="readonly"
-        :allow-html="allowHtml"
-        :default-index="defaultIndex"
         :item-height="itemHeight"
         :visible-item-count="visibleItemCount"
         :swipe-duration="swipeDuration"
+        :value-key="defaultProps.label"
+        :toolbar-position="toolbarPosition"
+        :show-toolbar="showToolbar"
+        :allow-html="allowHtml"
+        :default-index="defaultIndex"
         @confirm="onConfirm"
-        @cancel="onCancel"
-      />
+        @cancel="onCancel" />
     </van-popup>
   </div>
 </template>
 
 <script>
 import { Field, Popup, Picker } from 'vant'
-import popupAttrs from './utils/popup-attrs'
-import Storage from './utils/storage'
+import popupAttrs from '../utils/popup-attrs'
+import remoteOptionMixin from '../mixins/remote-options'
 
 const compName = 'FieldPicker'
-const storage = new Storage(compName)
 
 export default {
   name: compName,
   inheritAttrs: false,
+  mixins: [remoteOptionMixin(compName)],
   components: {
     [Field.name]: Field,
     [Popup.name]: Popup,
@@ -79,7 +73,12 @@ export default {
     },
     clickable: Boolean,
     title: String,
-    options: Array,
+    options: {
+      type: Array,
+      default() {
+        return []
+      }
+    },
     confirmButtonText: {
       type: String,
       default: '确认'
@@ -126,12 +125,7 @@ export default {
           value: 'value'
         }
       }
-    },
-    isCacheOptions: {
-      type: Boolean,
-      default: true
-    },
-    getOptions: Function // 远程获取选项 return promise
+    }
   },
   data() {
     this.popupAttrs = popupAttrs
@@ -143,51 +137,27 @@ export default {
   },
   methods: {
     async openPopup() {
-      try {
-        const { name, options, isCacheOptions, getOptions } = this
-        // 加载缓存
-        if (isCacheOptions) {
-          const popupOptions = storage.get(name) || []
-          if (popupOptions.length) {
-            this.popupOptions = popupOptions
-            this.showPopup = true
-            return
-          }
-        } else {
-          this.popupOptions = options || []
-        }
-
-        this.showPopup = true
-        // 远程获取
-        if (getOptions) {
-          this.popupLoading = true
-          this.popupOptions = await getOptions()
-          if (isCacheOptions) {
-            storage.set(name, this.popupOptions)
-          }
-          this.popupLoading = false
-        }
-      } catch (err) {
-        this.popupLoading = false
-      }
+      this.showPopup = true
+      this.popupOptions = await this._getRemoteOptions()
     },
+    // item object
     onConfirm(item) {
-      try {
+      let newValue = item
+      if (newValue !== undefined) {
         const { defaultProps } = this
         const { value: valueKey } = defaultProps
-        const newValue = item[valueKey]
-
-        this.$emit('input', newValue)
-        this.$emit('change', newValue)
-        this.showPopup = false
-      } catch (err) {
-        console.warn('FieldPicker', err.message)
+        newValue = item[valueKey]
       }
+      // console.log('onConfirm', item, newValue)
+      this.$emit('input', newValue)
+      this.$emit('change', newValue, item)
+      this.showPopup = false
     },
     onCancel() {
       this.showPopup = false
     },
     getSelectedLabel(value) {
+      if (!value) return value
       const { value: valueKey, label: labelKey } = this.defaultProps
       const text = this.popupOptions.reduce((t, v) => v[valueKey] === value ? v[labelKey] : t, '')
       return text

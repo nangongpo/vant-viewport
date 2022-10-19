@@ -7,7 +7,7 @@ import store from './store'
 
 import '@/styles/index.less'
 
-import '@/pwa/register-service-worker'
+// import '@/pwa/register-service-worker'
 
 import click from '@/directives/click'
 import vant from '@/plugins/vant'

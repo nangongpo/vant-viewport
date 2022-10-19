@@ -15,7 +15,7 @@
         @click="showSignature = true" />
     </div>
     <div class="signature-date text-right">{{ createAt }}</div>
-    <popup-signature v-model="showSignature" @save="createSignature"/>
+    <popup-signature v-model="showSignature" @save="createSignature" />
   </div>
 </template>
 
@@ -38,9 +38,7 @@ export default {
       previewSrc: ''
     }
   },
-  mounted() {
-
-  },
+  mounted() { },
   methods: {
     createSignature(src) {
       this.previewSrc = src

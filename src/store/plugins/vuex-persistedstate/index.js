@@ -6,13 +6,13 @@ const defaultOptions = {
   paths: undefined,
   reducer: (state, paths) => {
     return Array.isArray(paths)
-      ? paths.reduce(function(substate, path) {
+      ? paths.reduce(function (substate, path) {
         return shvl.set(substate, path, shvl.get(state, path))
       }, {})
       : state
   },
   subscriber: (store) => {
-    return function(handler) {
+    return function (handler) {
       return store.subscribe(handler)
     }
   },
@@ -24,8 +24,8 @@ const defaultOptions = {
       return (typeof value === 'string')
         ? JSON.parse(value) : (typeof value === 'object')
           ? value : undefined
-    // eslint-disable-next-line no-empty
-    } catch (err) {}
+      // eslint-disable-next-line no-empty
+    } catch (err) { }
 
     return undefined
   },
@@ -36,7 +36,7 @@ const defaultOptions = {
     return true
   },
   arrayMerger: (state, saved) => saved, // deepmerge 数组合并方法
-  rehydrated: (store) => {}, // 补充方法
+  rehydrated: (store) => { }, // 补充方法
   fetchBeforeUse: false,
   overwrite: false,
   assertStorage: (storage) => {
@@ -45,7 +45,7 @@ const defaultOptions = {
   }
 }
 
-export default function(options = {}) {
+export default function (options = {}) {
   const newOptions = { ...defaultOptions, ...options }
   const { key, paths, reducer, subscriber, storage, getState, setState, filter, arrayMerger, rehydrated, fetchBeforeUse, overwrite, assertStorage } = newOptions
 
@@ -61,7 +61,7 @@ export default function(options = {}) {
     savedState = fetchSavedState()
   }
 
-  return function(store) {
+  return function (store) {
     if (!fetchBeforeUse) {
       savedState = fetchSavedState()
     }
@@ -78,7 +78,7 @@ export default function(options = {}) {
       rehydrated(store)
     }
 
-    subscriber(store)(function(mutation, state) {
+    subscriber(store)(function (mutation, state) {
       if (filter(mutation)) {
         setState(
           key,

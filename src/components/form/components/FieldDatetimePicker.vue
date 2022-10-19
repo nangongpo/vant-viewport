@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="van-cell van-field2 field-datetime-picker"
-    :class="classname"
-  >
+  <div class="van-cell van-field2 field-datetime-picker" :class="classname">
     <van-field
       :name="name"
       :label="label"
@@ -12,12 +9,8 @@
       :clickable="!disabled"
       v-bind="$attrs"
       v-on="$listeners"
-      @click="showPopup = true"
-    />
-    <van-popup
-      v-model="showPopup"
-      v-bind="popupAttrs"
-    >
+      @click="openPopup" />
+    <van-popup v-model="showPopup" v-bind="popupAttrs">
       <van-datetime-picker
         :value="currentDate"
         :type="type"
@@ -26,13 +19,13 @@
         :cancel-button-text="cancelButtonText"
         :loading="popupLoading"
         :readonly="readonly"
+        :item-height="itemHeight"
+        :visible-item-count="visibleItemCount"
+        :swipe-duration="swipeDuration"
         :show-toolbar="showToolbar"
         :filter="filter"
         :formatter="formatter"
         :columns-order="columnsOrder"
-        :item-height="itemHeight"
-        :visible-item-count="visibleItemCount"
-        :swipe-duration="swipeDuration"
         :min-date="minDate"
         :max-date="maxDate"
         :min-hour="minHour"
@@ -40,16 +33,15 @@
         :min-minute="minMinute"
         :max-minute="maxMinute"
         @confirm="onConfirm"
-        @cancel="onCancel"
-      />
+        @cancel="onCancel" />
     </van-popup>
   </div>
 </template>
 
 <script>
 import { Field, Popup, DatetimePicker } from 'vant'
-import popupAttrs from './utils/popup-attrs'
-import { dateFormat, toDate } from './utils/date'
+import popupAttrs from '../utils/popup-attrs'
+import { dateFormat, toDate } from '../utils/date'
 
 const getFormatByType = (type, format) => {
   if (format) return format
@@ -145,18 +137,26 @@ export default {
     }
   },
   methods: {
+    openPopup() {
+      this.showPopup = true
+    },
+    // item string
     onConfirm(item) {
-      const { type, valueFormat } = this
-      // console.log('onConfirm', item)
-      const newValue = dateFormat(item, getFormatByType(type, valueFormat))
+      let newValue = item
+      if (newValue !== undefined) {
+        const { type, valueFormat } = this
+        newValue = dateFormat(item, getFormatByType(type, valueFormat))
+      }
+      // console.log('onConfirm', item, newValue)
       this.$emit('input', newValue)
-      this.$emit('change', newValue)
+      this.$emit('change', newValue, item)
       this.showPopup = false
     },
     onCancel() {
       this.showPopup = false
     },
     getSelectedLabel(value) {
+      if (!value) return value
       const { type, format } = this
       return dateFormat(value, getFormatByType(type, format))
     }
